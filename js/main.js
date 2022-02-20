@@ -1,24 +1,17 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно. 
+//Функция, возвращающая случайное целое число из переданного диапазона включительно.
 function getRandomInRange(min, max) {
-  if (max < min) {
-    console.log('Ошибка! Значение max меньше значения min, исправьте.');
-  } else if (max <= min) {
-    console.log('Значения в min и max не могут быть равными');
+  if (max <= min) {
+    throw new Error('Ошибка!Максимальное число меньше или равно минимальному');
   } else {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 
-getRandomInRange(8, 6);
+getRandomInRange(1, 10);
 
 //Функция для проверки максимальной длины строки.
-function checkStringlength(stringTest, lengthMax) {
-  if (stringTest.length >= lengthMax) {
-    return true;
-  }
-  return false;
+function checkStringLength(stringTest, lengthMax) {
+  return stringTest.length >= lengthMax;
 }
 
-let str = 'Какая-то а';
-
-checkStringlength(str, 10);
+checkStringLength('Hello World', 20);

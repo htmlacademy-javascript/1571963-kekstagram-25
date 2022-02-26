@@ -7,6 +7,10 @@ const checkStringLength = (stringTest, lengthMax) => stringTest.length >= length
 checkStringLength('Anton Rogulenko', 20);
 
 const NUMBER_OBJECTS = 25;
+const INITIAL_VALUE_AVATAR = 1;
+const END_VALUE_AVATAR = 16;
+const INITIAL_VALUE_LIKES = 15;
+const END_VALUE_LIKES = 200;
 
 const NAMES = [
   'Уилли',
@@ -42,26 +46,26 @@ const getRandomArrayElement = (elements) => elements[getRandomInRange(0, element
 
 let identifierDescription = 0; // для идентификатора
 
-function createCommentsPhoto() {
-  const randomAvatarIndex = String(getRandomInRange(1, 6));
+const createCommentsPhoto = () => {
+  const randomAvatarIndex = getRandomInRange(INITIAL_VALUE_AVATAR, END_VALUE_AVATAR);
   return {
     id: identifierDescription,
-    avatar: 'img/avatar-' + randomAvatarIndex + '.svg', // не знаю как это исправить, ругается что неожиданная конкатенация;
+    avatar: `img/avatar-${randomAvatarIndex}.svg`,
     message: getRandomArrayElement(MESSAGE),
     name: getRandomArrayElement(NAMES),
   };
-}
+};
 
-function createPhotosDescription() {
+const createPhotosDescription = () => {
   identifierDescription++;
   return {
     id: identifierDescription,
-    url: 'photos/' + identifierDescription + '.jpg', // не знаю как это исправить, ругается что неожиданная конкатенация;
+    url: `photos/${identifierDescription}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInRange(15, 200),
+    likes: getRandomInRange(INITIAL_VALUE_LIKES, END_VALUE_LIKES),
     comments: createCommentsPhoto(),
   };
-}
+};
 
 const newArrayPhotos = Array.from({
   length: NUMBER_OBJECTS

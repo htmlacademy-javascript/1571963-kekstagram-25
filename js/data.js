@@ -1,12 +1,5 @@
 import {getRandomInRange, getRandomArrayElement} from './util.js';
-
-const NUMBER_OBJECTS = 25;
-const NUMBER_COMMENTS = 5;
-const INITIAL_VALUE_AVATAR = 1;
-const END_VALUE_AVATAR = 16;
-const INITIAL_VALUE_LIKES = 15;
-const END_VALUE_LIKES = 200;
-
+import {NUMBER_OBJECTS, NUMBER_COMMENTS, INITIAL_VALUE_AVATAR, END_VALUE_AVATAR, INITIAL_VALUE_LIKES,END_VALUE_LIKES} from'./const.js';
 const NAMES = [
   'Уилли',
   'Зорба',

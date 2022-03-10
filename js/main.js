@@ -1,4 +1,3 @@
 import './util.js';
-import {createPhotosDescriptions} from './data.js';
-
-createPhotosDescriptions();
+import './data.js';
+import './picture.js';

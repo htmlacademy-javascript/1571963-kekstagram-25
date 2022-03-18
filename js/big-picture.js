@@ -1,4 +1,4 @@
-import {isEscapeKey, doElement} from './util.js';
+import {isEscapeKey, isEnterKey, doElement} from './util.js';
 import {WIDTH_VALUE_AVATAR, HEIGHT_VALUE_AVATAR} from './const.js';
 
 const openModalWindow = document.querySelector('.big-picture');
@@ -21,17 +21,49 @@ const createComment = () => {
   return comment;
 };
 
+const onOpenModalWindowEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    closeModalWindow();
+  }
+};
+
+const onOpenModalWindowEnterKeydown = (evt) => {
+  if (isEnterKey(evt)) {
+    closeModalWindow();
+  }
+};
+
+const onButtonOpenModalCancelClick = () => {
+  closeModalWindow();
+};
+
+function closeModalWindow (){
+  document.removeEventListener('keydown', onOpenModalWindowEscKeydown);
+  document.removeEventListener('keyup', onOpenModalWindowEnterKeydown);
+  openModalWindow.classList.add('hidden');
+  commentsCount.classList.remove('hidden');
+  document.body.classList.remove('modal-open');
+}
+
 const showModalWindow = (previewElement, imageElement) => {
   previewElement.addEventListener('click', (evt) => {
     evt.preventDefault();
     openModalWindow.classList.remove('hidden');
+
+    document.addEventListener('keydown', onOpenModalWindowEscKeydown);
+    document.addEventListener('keyup', onOpenModalWindowEnterKeydown);
+    cancelModalWindow.addEventListener('click', onButtonOpenModalCancelClick);
+
     hideCommentCounter.classList.add('hidden');
     hideCommentLoader.classList.add('hidden');
+
     document.body.classList.add('modal-open');
+
     bigImg.querySelector('img').src = imageElement.url;
     bigImg.querySelector('img').alt = imageElement.alt;
     likesCount.textContent = imageElement.likes;
     commentsCount.textContent = imageElement.comments.length;
+
     for(let i = 0 ; i < imageElement.comments.length; i++){
       const newComment = createComment();
       newComment.querySelector('img').src = imageElement.comments[i].avatar;
@@ -39,20 +71,8 @@ const showModalWindow = (previewElement, imageElement) => {
       newComment.querySelector('p').textContent = imageElement.comments[i].message;
       socialComments.append(newComment);
     }
-    document.addEventListener('keydown', (event) => {
-      if (isEscapeKey(event)) {
-        evt.preventDefault();
-        openModalWindow.classList.add('hidden');
-        document.body.classList.remove('modal-open');
-      }
-    });
   });
 };
 
-cancelModalWindow.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  openModalWindow.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-});
 
 export {showModalWindow};

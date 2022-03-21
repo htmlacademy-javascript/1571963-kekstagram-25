@@ -53,19 +53,16 @@ const showModalWindow = (previewElement, imageElement) => {
     bigImg.querySelector('img').alt = imageElement.alt;
     likesCount.textContent = String(imageElement.likes);
     commentsCount.textContent = String(imageElement.comments.length);
-    let arrayComments = imageElement.comments.slice(START_ARRAY_COMMENT);
+    const arrayComments = imageElement.comments.slice(START_ARRAY_COMMENT);
     let array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
     let count = array.length;
-    console.log(array);
     commentNumber.textContent = String(count);
-    console.log(arrayComments);
     hideCommentLoader.addEventListener('click', () => {
       array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
       createComments(array, socialComments);
       if(array.length === START_ARRAY_COMMENT){
-        console.log(arrayComments.length);
         hideCommentLoader.classList.add('hidden');
-      } 
+      }
       count += array.length;
       commentNumber.textContent = String(count);
     });

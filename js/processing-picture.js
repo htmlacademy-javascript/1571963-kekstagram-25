@@ -7,18 +7,18 @@ const imgUploadFile = imgUploadForm.querySelector('#upload-file');
 const imgUploadCancel = imgUploadForm.querySelector('#upload-cancel');
 const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
 const textHashtags = imgUploadForm.querySelector('.text__hashtags');
-const textDescriptiontags = imgUploadForm.querySelector('.text__description');
+const textDescriptionTags = imgUploadForm.querySelector('.text__description');
 const btnSubmit = document.querySelector('.img-upload__submit');
 
 
 const onImgUploadEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    closeModalimgUpload();
+    closeModalImgUpload();
   }
 };
 
 const onBtnImgUploadCancelClick = () => {
-  closeModalimgUpload();
+  closeModalImgUpload();
 };
 
 function removeEventListenerEscKeydown () {
@@ -36,7 +36,7 @@ function listenerEventTagClass (nameTagClass, removeEvt, addEvt) {
 
 listenerEventTagClass(textHashtags, removeEventListenerEscKeydown, addEventListenerEscKeydown);
 
-listenerEventTagClass(textDescriptiontags, removeEventListenerEscKeydown, addEventListenerEscKeydown);
+listenerEventTagClass(textDescriptionTags, removeEventListenerEscKeydown, addEventListenerEscKeydown);
 
 
 imgUploadFile.addEventListener('change', () => {
@@ -47,7 +47,7 @@ imgUploadFile.addEventListener('change', () => {
   imgUploadCancel.addEventListener('click', onBtnImgUploadCancelClick);
 });
 
-function closeModalimgUpload () {
+function closeModalImgUpload () {
   imgUploadOverlay.classList.add('hidden');
   imgUploadFile.value = '';
   document.body.classList.remove('modal-open');

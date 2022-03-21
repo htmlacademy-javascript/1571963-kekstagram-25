@@ -1,25 +1,16 @@
-import {isEscapeKey, isEnterKey, doElement} from './util.js';
-import {WIDTH_VALUE_AVATAR, HEIGHT_VALUE_AVATAR} from './const.js';
+import {isEscapeKey, isEnterKey} from './util.js';
+import {createComments} from './create-comments.js';
+import {START_ARRAY_COMMENT, END_ARRAY_COMMENT} from './const.js';
 
 const openModalWindow = document.querySelector('.big-picture');
-const hideCommentCounter = openModalWindow.querySelector('.social__comment-count');
 const hideCommentLoader = openModalWindow.querySelector('.comments-loader');
 const cancelModalWindow = openModalWindow.querySelector('.big-picture__cancel');
 const bigImg = openModalWindow.querySelector('.big-picture__img');
 const likesCount = openModalWindow.querySelector('.likes-count');
 const commentsCount = openModalWindow.querySelector ('.comments-count');
 const socialComments = openModalWindow.querySelector('.social__comments');
+const commentNumber = openModalWindow.querySelector('.comment-number');
 
-const createComment = () => {
-  const comment = doElement('li', 'social__comment');
-  const avatar = doElement('img', 'social__picture');
-  avatar.style.width = WIDTH_VALUE_AVATAR;
-  avatar.style.heght = HEIGHT_VALUE_AVATAR;
-  comment.append(avatar);
-  const commentText = doElement('p', 'social__text');
-  comment.append(commentText);
-  return comment;
-};
 
 const onOpenModalWindowEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -43,6 +34,8 @@ function closeModalWindow (){
   openModalWindow.classList.add('hidden');
   commentsCount.classList.remove('hidden');
   document.body.classList.remove('modal-open');
+  socialComments.innerHTML='';
+  hideCommentLoader.classList.remove('hidden');
 }
 
 const showModalWindow = (previewElement, imageElement) => {
@@ -54,25 +47,27 @@ const showModalWindow = (previewElement, imageElement) => {
     document.addEventListener('keyup', onOpenModalWindowEnterKeydown);
     cancelModalWindow.addEventListener('click', onButtonOpenModalCancelClick);
 
-    hideCommentCounter.classList.add('hidden');
-    hideCommentLoader.classList.add('hidden');
-
     document.body.classList.add('modal-open');
 
     bigImg.querySelector('img').src = imageElement.url;
     bigImg.querySelector('img').alt = imageElement.alt;
-    likesCount.textContent = imageElement.likes;
-    commentsCount.textContent = imageElement.comments.length;
-
-    for(let i = 0 ; i < imageElement.comments.length; i++){
-      const newComment = createComment();
-      newComment.querySelector('img').src = imageElement.comments[i].avatar;
-      newComment.querySelector('img').alt = imageElement.comments[i].name;
-      newComment.querySelector('p').textContent = imageElement.comments[i].message;
-      socialComments.append(newComment);
-    }
+    likesCount.textContent = String(imageElement.likes);
+    commentsCount.textContent = String(imageElement.comments.length);
+    const arrayComments = imageElement.comments.slice(START_ARRAY_COMMENT);
+    let array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
+    let count = array.length;
+    commentNumber.textContent = String(count);
+    hideCommentLoader.addEventListener('click', () => {
+      array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
+      createComments(array, socialComments);
+      if(array.length === START_ARRAY_COMMENT){
+        hideCommentLoader.classList.add('hidden');
+      }
+      count += array.length;
+      commentNumber.textContent = String(count);
+    });
+    createComments(array, socialComments);
   });
 };
-
 
 export {showModalWindow};

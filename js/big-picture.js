@@ -28,6 +28,14 @@ const onButtonOpenModalCancelClick = () => {
   closeModalWindow();
 };
 
+const showCommentsLoader = (array, value) => {
+  if (array.length <= value) {
+    hideCommentLoader.classList.add('hidden');
+  } else {
+    hideCommentLoader.classList.remove('hidden');
+  }
+};
+
 function closeModalWindow (){
   document.removeEventListener('keydown', onOpenModalWindowEscKeydown);
   document.removeEventListener('keyup', onOpenModalWindowEnterKeydown);
@@ -35,7 +43,6 @@ function closeModalWindow (){
   commentsCount.classList.remove('hidden');
   document.body.classList.remove('modal-open');
   socialComments.innerHTML='';
-  hideCommentLoader.classList.remove('hidden');
 }
 
 const showModalWindow = (previewElement, imageElement) => {
@@ -57,15 +64,14 @@ const showModalWindow = (previewElement, imageElement) => {
     let array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
     let count = array.length;
     commentNumber.textContent = String(count);
-    hideCommentLoader.addEventListener('click', () => {
+    hideCommentLoader.addEventListener('click', clickCommentListHandler);
+    function clickCommentListHandler () {
       array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
       createComments(array, socialComments);
-      if(array.length === START_ARRAY_COMMENT){
-        hideCommentLoader.classList.add('hidden');
-      }
+      showCommentsLoader(array,START_ARRAY_COMMENT);
       count += array.length;
       commentNumber.textContent = String(count);
-    });
+    }
     createComments(array, socialComments);
   });
 };

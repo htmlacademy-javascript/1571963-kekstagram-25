@@ -28,13 +28,6 @@ const onButtonOpenModalCancelClick = () => {
   closeModalWindow();
 };
 
-const showCommentsLoader = (array, value) => {
-  if (array.length <= value) {
-    hideCommentLoader.classList.add('hidden');
-  } else {
-    hideCommentLoader.classList.remove('hidden');
-  }
-};
 
 function closeModalWindow (){
   document.removeEventListener('keydown', onOpenModalWindowEscKeydown);
@@ -42,6 +35,7 @@ function closeModalWindow (){
   openModalWindow.classList.add('hidden');
   commentsCount.classList.remove('hidden');
   document.body.classList.remove('modal-open');
+  hideCommentLoader.classList.remove('hidden');
   socialComments.innerHTML='';
 }
 
@@ -64,14 +58,15 @@ const showModalWindow = (previewElement, imageElement) => {
     let array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
     let count = array.length;
     commentNumber.textContent = String(count);
-    hideCommentLoader.addEventListener('click', clickCommentListHandler);
-    function clickCommentListHandler () {
+    hideCommentLoader.addEventListener('click', () => {
       array = arrayComments.splice(START_ARRAY_COMMENT, END_ARRAY_COMMENT);
       createComments(array, socialComments);
-      showCommentsLoader(array,START_ARRAY_COMMENT);
+      if (array.length === START_ARRAY_COMMENT) {
+        hideCommentLoader.classList.add('hidden');
+      }
       count += array.length;
       commentNumber.textContent = String(count);
-    }
+    });
     createComments(array, socialComments);
   });
 };

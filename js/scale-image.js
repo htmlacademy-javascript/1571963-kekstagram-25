@@ -10,7 +10,7 @@ const buttonRangeSmaller = document.querySelector('.scale__control--smaller');
 
 buttonRangeBigger.addEventListener('click', () => {
   let scale = parseInt(rangeInput.value, DECIMAL_SYSTEM);
-  if(!(scale > MAX_PERCENTAGE_VALUE)){
+  if(!(scale >= MAX_PERCENTAGE_VALUE)){
     scale = scale + SCALE_STEP;
     rangeInput.value = `${scale}%`;
     imagePreviewElement.style.transform = `scale(${scale / DIVISION_ONE_HUNDRED})`;
@@ -25,3 +25,5 @@ buttonRangeSmaller.addEventListener('click', () => {
     imagePreviewElement.style.transform = `scale(${scale / DIVISION_ONE_HUNDRED})`;
   }
 });
+
+export {imagePreviewElement};

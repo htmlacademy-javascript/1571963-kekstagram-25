@@ -1,3 +1,5 @@
+import {MESSAGE_SHOW_TIME} from './const.js';
+
 //Функция, возвращающая случайное целое число из переданного диапазона включительно.
 const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -26,4 +28,18 @@ function checkNumberHashtags(array, count) {
   return array.length <= count;
 }
 
-export {getRandomInRange, getRandomArrayElement, isEscapeKey,isEnterKey, doElement, checkNumberHashtags};
+//Функция вывода ошибки загрузки миниатюр
+const showMessageError = (message) => {
+  const messageContainer = document.createElement('div');
+  messageContainer.style.color = 'red';
+  messageContainer.style.fontWeight = 'bold';
+  messageContainer.style.fontSize = 'x-large';
+  messageContainer.style.textAlign = 'center';
+  messageContainer.textContent = message;
+  document.body.append(messageContainer);
+  setTimeout(() => {
+    messageContainer.remove();
+  }, MESSAGE_SHOW_TIME);
+};
+
+export {getRandomInRange, getRandomArrayElement, isEscapeKey,isEnterKey, doElement, checkNumberHashtags, showMessageError};

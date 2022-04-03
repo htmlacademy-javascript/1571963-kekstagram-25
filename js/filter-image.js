@@ -1,8 +1,10 @@
-const imagePreviewElement = document.querySelector('.img-upload__preview img');
+import {imagePreviewElement} from './scale-image.js';
 
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
+const scaleInput = document.querySelector('.scale__control--value');
+const effectImageNoneElement = document.querySelector('#effect-none');
 
 const effect = {
   'effect-none': {
@@ -106,6 +108,8 @@ noUiSlider.create(effectLevelSlider, {
   }
 });
 
+effectLevelSlider.classList.add('hidden');
+
 const onChangeEffectsList = (evt) => {
   imagePreviewElement.classList = '';
   if (evt.target.id === 'effect-none') {
@@ -126,3 +130,5 @@ effectLevelSlider.noUiSlider.on('update', () => {
 });
 
 effectsList.addEventListener('change', onChangeEffectsList);
+
+export {imagePreviewElement, scaleInput, effectLevelValue, effectImageNoneElement, effectLevelSlider};

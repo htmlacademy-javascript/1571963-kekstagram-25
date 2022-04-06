@@ -51,7 +51,7 @@ imgUploadFile.addEventListener('change', () => {
   imgUploadCancel.addEventListener('click', onBtnImgUploadCancelClick);
 });
 
-// закрытие окна и сбрасывал введённые пользователем данные, возвращаем исходные данные.
+// закрытие окна и сбрасывание введённые пользователем данных.
 function closeModalImgUpload () {
   imgUploadOverlay.classList.add('hidden');
   imgUploadFile.value = '';

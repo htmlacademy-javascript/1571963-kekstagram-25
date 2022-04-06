@@ -1,8 +1,9 @@
-// import {createPhotosDescriptions} from './data.js';
+
 import {showModalWindow} from './big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictureList = document.querySelector('.pictures');
+const filterContainerElement = document.querySelector('.img-filters');
 
 const fillMainPage = (miniatures) => {
   const pictureListFragment = document.createDocumentFragment();
@@ -16,8 +17,8 @@ const fillMainPage = (miniatures) => {
     showModalWindow(copyItemPicture, picture);
     pictureListFragment.append(copyItemPicture);
   });
-
   pictureList.append(pictureListFragment);
+  filterContainerElement.classList.remove('img-filters--inactive');
 };
 
 export{fillMainPage};

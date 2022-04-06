@@ -8,8 +8,6 @@ const checkStringLength = (stringTest, lengthMax) => stringTest.length >= length
 
 checkStringLength('Anton Rogulenko', 20);
 
-const getRandomArrayElement = (elements) => elements[getRandomInRange(0, elements.length - 1)];
-
 //Функция для клавиши Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -42,4 +40,4 @@ const showMessageError = (message) => {
   }, MESSAGE_SHOW_TIME);
 };
 
-export {getRandomInRange, getRandomArrayElement, isEscapeKey,isEnterKey, doElement, checkNumberHashtags, showMessageError};
+export {getRandomInRange, isEscapeKey,isEnterKey, doElement, checkNumberHashtags, showMessageError};

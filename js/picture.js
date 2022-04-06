@@ -1,4 +1,4 @@
-// import {createPhotosDescriptions} from './data.js';
+
 import {showModalWindow} from './big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');

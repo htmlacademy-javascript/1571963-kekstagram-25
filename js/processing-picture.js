@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {REGULAR_EXPRESSION_SPACE, REGULAR_EXPRESSION_HASHTAG, MAX_COUNT_HASHTAGS, MAX_PERCENTAGE_VALUE, DIVISION_ONE_HUNDRED} from './const.js';
+import {REGULAR_EXPRESSION_SPACE, REGULAR_EXPRESSION_HASHTAG, MAX_COUNT_HASHTAGS, MAX_PERCENTAGE_VALUE, DIVISION_ONE_HUNDRED, FILE_TYPES} from './const.js';
 import {checkNumberHashtags} from './util.js';
 import {sendData} from './api.js';
 import {scaleInput, effectLevelValue, effectImageNoneElement} from './filter-image.js';
@@ -66,6 +66,19 @@ function closeModalImgUpload () {
   removeEventListenerEscKeydown();
   imgUploadCancel.removeEventListener('click', onBtnImgUploadCancelClick);
 }
+
+imgUploadFile.addEventListener('change', () => {
+  const file = imgUploadFile.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imagePreviewElement.src = URL.createObjectURL(file);
+  }
+  imgUploadOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  addEventListenerEscKeydown();
+  imgUploadCancel.addEventListener('click', closeModalImgUpload);
+});
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__text',
@@ -185,4 +198,4 @@ const setUserFormSubmit = (onSucces) => {
   });
 };
 
-export {setUserFormSubmit, closeModalImgUpload};
+export {setUserFormSubmit, closeModalImgUpload, imgUploadFile};
